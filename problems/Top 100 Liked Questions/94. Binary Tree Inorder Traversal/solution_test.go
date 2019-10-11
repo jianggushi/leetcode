@@ -1,6 +1,9 @@
 package solution
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func Test_inorderTraversal(t *testing.T) {
 	node := &TreeNode{}
@@ -16,7 +19,9 @@ func Test_inorderTraversal(t *testing.T) {
 	node.Right.Left.Left = nil
 	node.Right.Left.Right = nil
 
-	output := inorderTraversal(node)
-
-	t.Error(output)
+	expected := []int{1, 3, 2}
+	result := inorderTraversal(node)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("expected: %v, inorderTraversal: %v", expected, result)
+	}
 }
