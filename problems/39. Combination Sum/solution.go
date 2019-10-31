@@ -1,24 +1,27 @@
 package solution
 
+import "sort"
+
 func combinationSum(candidates []int, target int) [][]int {
 	ans := make([][]int, 0)
-	result := make([]int, 0)
-	combination(candidates, target, 0, result, &ans)
+	sort.Ints(candidates)
+	backtrack(candidates, target, 0, []int{}, &ans)
 	return ans
 }
 
-func combination(candidates []int, target int, index int, result []int, ans *[][]int) {
+func backtrack(candidates []int, target int, first int, curr []int, ans *[][]int) {
 	if target == 0 {
-		*ans = append(*ans, result)
+		tmp := make([]int, len(curr))
+		copy(tmp, curr)
+		*ans = append(*ans, tmp)
 		return
 	}
 	n := len(candidates)
-	for i := index; i < n; i++ {
+	for i := first; i < n; i++ {
 		if candidates[i] <= target {
-			tmp := make([]int, len(result)+1)
-			copy(tmp, result)
-			tmp[len(result)] = candidates[i]
-			combination(candidates, target-candidates[i], i, tmp, ans)
+			curr = append(curr, candidates[i])
+			backtrack(candidates, target-candidates[i], i, curr, ans)
+			curr = curr[:len(curr)-1]
 		}
 	}
 }
