@@ -1,5 +1,27 @@
 package solution
 
+// 回溯法
+func generateParenthesis(n int) []string {
+	ans := make([]string, 0)
+	if n > 0 {
+		backtrack(n, 0, 0, "", &ans)
+	}
+	return ans
+}
+
+func backtrack(n int, open int, close int, curr string, ans *[]string) {
+	if len(curr) == 2*n {
+		*ans = append(*ans, curr)
+		return
+	}
+	if open < n {
+		backtrack(n, open+1, close, curr+"(", ans)
+	}
+	if close < open {
+		backtrack(n, open, close+1, curr+")", ans)
+	}
+}
+
 // 思路：
 // 求解括号的组合方式，分治策略
 // 当 n = 1 时，只有一种组合方式 [()]
@@ -10,7 +32,7 @@ package solution
 // (()) -> [()(()), (()()), ((())), (()()), (())()]
 // 去除重复的就是 [()()(), (())(), ()(()), (()()), ((()))]
 
-func generateParenthesis(n int) []string {
+func generateParenthesis1(n int) []string {
 	if n == 1 {
 		return []string{"()"}
 	}
