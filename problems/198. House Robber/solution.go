@@ -64,6 +64,7 @@ func rob2(nums []int) int {
 }
 
 // 递归方式
+// rob(n) = max(rob(n-1), rob(n-2) + n)
 func rob1(nums []int) int {
 	n := len(nums)
 	if n == 0 {
