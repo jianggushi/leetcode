@@ -1,5 +1,6 @@
 package solution
 
+// 回溯算法
 func permute(nums []int) [][]int {
 	ans := make([][]int, 0)
 	backtrack(nums, 0, &ans)
