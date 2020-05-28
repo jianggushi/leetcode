@@ -1,6 +1,6 @@
 package solution
 
-func findUnsortedSubarray1(nums []int) int {
+func findUnsortedSubarray(nums []int) int {
 	n := len(nums)
 	start := 0
 	for i := 0; i < n-1; i++ {
