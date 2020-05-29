@@ -12,7 +12,7 @@ package solution
 // 迭代方式，再简化代码
 // n == 0 这种特殊情况的判断也可以去掉
 // 循环中通过临时变量的赋值方式，也可以简化掉
-func rob(nums []int) int {
+func rob4(nums []int) int {
 	n := len(nums)
 	dp0, dp1 := 0, 0
 	for i := 0; i < n; i++ {
@@ -41,8 +41,8 @@ func rob3(nums []int) int {
 	return dp1
 }
 
-// 迭代方式
-func rob2(nums []int) int {
+// 动态规划
+func rob(nums []int) int {
 	n := len(nums)
 	if n == 0 {
 		return 0
@@ -50,12 +50,9 @@ func rob2(nums []int) int {
 	if n == 1 {
 		return nums[0]
 	}
-	if n == 2 {
-		return max(nums[0], nums[1])
-	}
-	dp0 := nums[0]
-	dp1 := max(nums[0], nums[1])
-	for i := 2; i < n; i++ {
+	dp0 := 0
+	dp1 := nums[0]
+	for i := 1; i < n; i++ {
 		dp2 := max(dp1, dp0+nums[i])
 		dp0 = dp1
 		dp1 = dp2
@@ -64,8 +61,14 @@ func rob2(nums []int) int {
 }
 
 // 递归方式
-// rob(n) = max(rob(n-1), rob(n-2) + n)
-func rob1(nums []int) int {
+// 使用一个 map 辅助记忆之前计算过的值
+// 递归前先从 map 中查找
+func rob2(nums []int) int {
+	mmap := make(map[int]int)
+	return calc(nums, mmap)
+}
+
+func calc(nums []int, mmap map[int]int) int {
 	n := len(nums)
 	if n == 0 {
 		return 0
@@ -73,8 +76,25 @@ func rob1(nums []int) int {
 	if n == 1 {
 		return nums[0]
 	}
-	if n == 2 {
-		return max(nums[0], nums[1])
+	if v, ok := mmap[n]; ok {
+		return v
+	}
+	res := max(calc(nums[:n-1], mmap), calc(nums[:n-2], mmap)+nums[n-1])
+	mmap[n] = res
+	return res
+}
+
+// 递归方式
+// 要解决一个大问题，先考虑解决一个小问题
+// rob(n) = max(rob(n-1), rob(n-2) + n)
+// 时间复杂度有点高，因为存在重复计算
+func rob1(nums []int) int {
+	n := len(nums)
+	if n == 0 {
+		return 0
+	}
+	if n == 1 {
+		return nums[0]
 	}
 	return max(rob1(nums[:n-1]), rob1(nums[:n-2])+nums[n-1])
 }
