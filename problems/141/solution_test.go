@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func newListNode(vals []int) *ListNode {
+func new(vals []int) *ListNode {
 	l := &ListNode{Val: vals[0]}
 	p := l
 	for _, v := range vals[1:] {
@@ -16,15 +16,7 @@ func newListNode(vals []int) *ListNode {
 	return l
 }
 
-func printListNode(l *ListNode) {
-	for ; l != nil; l = l.Next {
-		fmt.Printf("%v ", l.Val)
-	}
-	fmt.Println()
-}
-
 func Test_hasCycle_1(t *testing.T) {
-	l := newListNode([]int{1, 2, 6, 3, 4, 5, 6})
-	printListNode(l)
+	l := new([]int{1, 2, 6, 3, 4, 5, 6})
 	fmt.Println(hasCycle(l))
 }
