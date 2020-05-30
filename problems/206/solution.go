@@ -1,26 +1,10 @@
 package solution
 
-// Reverse a singly linked list.
-//
-// Example 1:
-// Input: 1->2->3->4->5->NULL
-// Output: 5->4->3->2->1->NULL
-//
-// Follow up:
-// A linked list can be reversed either iteratively or recursively. Could you implement both?
-
+// ListNode Definition for singly-linked list.
 type ListNode struct {
 	Val  int
 	Next *ListNode
 }
-
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
 
 // 递归方式
 // n1 -> ... -> nk-1 -> nk -> nk+1 -> ... -> nm -> $
@@ -29,11 +13,11 @@ type ListNode struct {
 // 那么需要执行
 // nk.next.next = nk
 // nk.next = nil
-func reverseList(head *ListNode) *ListNode {
+func reverseList5(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-	p := reverseList(head.Next)
+	p := reverseList5(head.Next)
 	head.Next.Next = head
 	head.Next = nil
 	return p
@@ -65,19 +49,13 @@ func reverseList3(head *ListNode) *ListNode {
 }
 
 // 两个指针
-func reverseList2(head *ListNode) *ListNode {
-	if head == nil {
-		return head
+func reverseList(head *ListNode) *ListNode {
+	var l, r *ListNode
+	r = head
+	for r != nil {
+		r.Next, l, r = l, r, r.Next
 	}
-	p1 := head
-	p2 := head.Next
-	for p1 != nil && p2 != nil {
-		p1.Next = p2.Next
-		p2.Next = head
-		head = p2
-		p2 = p1.Next
-	}
-	return head
+	return l
 }
 
 // head 不动
