@@ -17,7 +17,7 @@ type ListNode struct {
 // 方法二：找到中间节点，逆序一半链表，然后从两段链表的两端进行回文检查
 
 // 找到中间节点，逆序前一半，在一个循环中进行
-func isPalindrome(head *ListNode) bool {
+func isPalindrome6(head *ListNode) bool {
 	if head == nil {
 		return true
 	}
@@ -156,36 +156,18 @@ func isPalindrome3(head *ListNode) bool {
 	return true
 }
 
-// 暴力扫描，优化
-func isPalindrome2(head *ListNode) bool {
-	var tail, pl, pr *ListNode
-
-	pl = head
-	for pl != pr && pl.Next != pr {
-		for pr = pl; pr.Next != tail; pr = pr.Next {
-		}
-		tail = pr
-		if pl.Val != pr.Val {
-			return false
-		}
-		pl = pl.Next
-	}
-	return true
-}
-
 // 暴力扫描
-func isPalindrome1(head *ListNode) bool {
-	var tail, pr *ListNode
-	pl := head
-
-	for pl != pr && pl.Next != pr {
-		for pr = head; pr.Next != tail; pr = pr.Next {
+func isPalindrome(head *ListNode) bool {
+	var tail, l, r *ListNode
+	l = head
+	for l != tail && l.Next != r {
+		for r = l; r.Next != tail; r = r.Next {
 		}
-		tail = pr
-		if pl.Val != pr.Val {
+		if l.Val != r.Val {
 			return false
 		}
-		pl = pl.Next
+		tail = r
+		l = l.Next
 	}
 	return true
 }
