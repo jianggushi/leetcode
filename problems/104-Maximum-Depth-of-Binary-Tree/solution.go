@@ -7,14 +7,14 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+// 递归遍历，深度优先搜索
 func maxDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	leftDepth := maxDepth(root.Left)
-	rightDepth := maxDepth(root.Right)
-	if leftDepth > rightDepth {
-		return leftDepth + 1
+	dl, dr := maxDepth(root.Left), maxDepth(root.Right)
+	if dl > dr {
+		return dl + 1
 	}
-	return rightDepth + 1
+	return dr + 1
 }
