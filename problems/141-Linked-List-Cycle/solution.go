@@ -26,7 +26,7 @@ func hasCycle(head *ListNode) bool {
 // 慢指针每次移动一步，快指针每次移动两步
 // 如果有环，快指针肯定会追上慢指针
 // 如果没有环，快指针和慢指针都会到达末尾
-func hasCycle1(head *ListNode) bool {
+func hasCycle2(head *ListNode) bool {
 	if head == nil || head.Next == nil {
 		return false
 	}
@@ -39,4 +39,18 @@ func hasCycle1(head *ListNode) bool {
 		fast = fast.Next.Next
 	}
 	return true
+}
+
+// 哈希表
+// 遍历链表节点，使用哈希表保存访问过的节点
+// 如果当前节点之前访问过，说明链表中有环
+func hasCycle1(head *ListNode) bool {
+	mmap := make(map[*ListNode]int)
+	for p := head; p != nil; p = p.Next {
+		if mmap[p] > 0 {
+			return true
+		}
+		mmap[p]++
+	}
+	return false
 }
