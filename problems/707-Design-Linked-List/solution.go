@@ -7,6 +7,7 @@ type MyLinkedList struct {
 
 /** Initialize your data structure here. */
 func Constructor() MyLinkedList {
+	// MyLinkedList 头节点为 dumpy 节点，不保存数据，仅指向下一个节点
 	return MyLinkedList{}
 }
 
@@ -47,6 +48,8 @@ func (this *MyLinkedList) AddAtIndex(index int, val int) {
 	node := &MyLinkedList{
 		val: val,
 	}
+	// p is the index-th node
+	// p1 is the previous node of p
 	p1, p := this, this.next
 	i := 0
 	for p != nil {
@@ -57,6 +60,7 @@ func (this *MyLinkedList) AddAtIndex(index int, val int) {
 		p = p.next
 		i++
 	}
+	// if index is invalid, the node will not be inserted
 	if i == index {
 		node.next = p1.next
 		p1.next = node
@@ -65,6 +69,8 @@ func (this *MyLinkedList) AddAtIndex(index int, val int) {
 
 /** Delete the index-th node in the linked list, if the index is valid. */
 func (this *MyLinkedList) DeleteAtIndex(index int) {
+	// p is the index-th node
+	// p1 is the previous node of p
 	p1, p := this, this.next
 	i := 0
 	for p != nil {
