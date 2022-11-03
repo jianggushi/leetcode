@@ -1,3 +1,7 @@
+// Source : https://leetcode.cn/problems/find-pivot-index/
+// Author : jianggushi
+// Date   : 2022-10-26
+
 package solution
 
 import (
